@@ -27,4 +27,11 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
             "q.option4 LIKE %:word% OR " +
             "q.rightAnswer LIKE %:word%")
     List<Question> findQuestionsSearchWithAnyLetter(@Param("word") String word);
+
+
+    @Query(value = "SELECT * FROM Question q WHERE q.category = :category ORDER BY RAND() LIMIT :numQ", nativeQuery = true)
+    List<Question> findRandomQuestionWithCategory(@Param("category") String category, @Param("numQ") int numQ);
+
+
 }
+
